@@ -1,40 +1,48 @@
+"""доменные ошибки toolkit.
+Все ошибки пользователя идут от ToolkitError
+CLI ловит ToolkitError и завершает процесс с кодом 2
+"""
 
-class UserSideError(Exception):
-    """базовая ошибка"""
+
+class ToolkitError(Exception):
+    """Базовая ошибка пользователя.
+
+    От неё наследуются все остальные ошибки приложения,
+    чтобы CLI мог поймать любую из них одним блоком except.
+    """
     pass
 
-#пустое выражение
-class EmptyExpressionError(UserSideError):
-    
+
+class EmptyExpressionError(ToolkitError):
+    """Была передана пустая строка вместо выражения"""
     pass
 
-#недопустимый символ
-class InvalidCharacterError(UserSideError):
 
+class InvalidCharacterError(ToolkitError):
+    """В выражении встретился недопустимый символ"""
     pass
 
-#пропущенный операнд 
-class MissingOperandError(UserSideError):
 
+class MissingOperandError(ToolkitError):
+    """Пропущено число или передано 2 операнда подряд"""
     pass
 
-#два бинарных оператора подряд
-class DoubleOperatorError(UserSideError):
+
+class DivisionByZeroError(ToolkitError):
+    """Попытка деления на ноль."""
     pass
 
-#деление на ноль
-class DivisionByZeroError(UserSideError):
 
+class UnknownUnitError(ToolkitError):
+    """Была введена единица измерения, которой нет в таблице"""
     pass
 
-#неизвестная единица
-class UnknownUnitError(UserSideError):
-    
+
+class IncompatibleUnitsError(ToolkitError):
+    """Попытка перевести несовместимые величины"""
     pass
 
-#несовместимые единицы
-class IncompatibleUnitsError(UserSideError):
 
+class BelowAbsoluteZeroError(ToolkitError):
+    """Температура ниже абсолютного нуля"""
     pass
-
-class BelowAbsoluteZeroError(UserSideError)
